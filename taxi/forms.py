@@ -6,13 +6,13 @@ from django.contrib.auth.forms import UserCreationForm
 from taxi.models import Car
 
 
-class DriverCreationForm(forms.ModelForm):
+class DriverCreationForm(UserCreationForm):
     license_number = forms.CharField(
         required=True,
         validators=[RegexValidator(r"^[A-Z]{3}\d{5}$")]
     )
 
-    class Meta:
+    class Meta(UserCreationForm.Meta):
         model = get_user_model()
         fields = UserCreationForm.Meta.fields + (
             "first_name",
